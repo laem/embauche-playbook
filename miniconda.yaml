@@ -1,0 +1,14 @@
+# run command ansible-playbook with --ask-become-pass
+- hosts : atlantide
+  remote_user: pousse
+  vars:
+    miniconda_url: https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+  tasks:
+    - name: Create destination temporary directory
+      file: path=~/tmp state=directory
+    - name: Download mini conda
+      get_url: url=https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh dest=~/tmp/ mode=0755
+    - name: Install miniconda
+      shell: ~/tmp/Miniconda-latest-Linux-x86_64.sh -b -f
+    - name: Add miniconda to bashrc path
+      lineinfile: dest=~/.bashrc line='export PATH=$PATH:/home/pousse/miniconda2/bin' create=yes

@@ -1,0 +1,8 @@
+# run command ansible-playbook with --ask-become-pass
+- hosts : atlantide
+  remote_user: pousse
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Ensure git is installed
+      apt: name=git
