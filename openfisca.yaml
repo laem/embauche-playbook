@@ -1,0 +1,5 @@
+#- include: setup.yaml
+#- include: install-nginx.yaml
+#- include: install-miniconda.yaml
+#- include: environment-openfisca.yaml
+- include: restart-openfisca.yaml

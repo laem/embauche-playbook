@@ -1,6 +1,6 @@
 # run command ansible-playbook with --ask-become-pass
 - hosts : atlantide
-  remote_user: pousse
+  remote_user: openfisca
   vars:
     miniconda_url: https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
   tasks:
@@ -11,4 +11,8 @@
     - name: Install miniconda
       shell: ~/tmp/Miniconda-latest-Linux-x86_64.sh -b -f
     - name: Add miniconda to bashrc path
-      lineinfile: dest=~/.bashrc line='export PATH=$PATH:/home/pousse/miniconda2/bin' create=yes
+      lineinfile: dest=~/.bashrc line='export PATH=$PATH:/home/openfisca/miniconda2/bin' create=yes
+    - name: Source bashrc
+      shell: . ~/.bashrc
+    - name: Ensure conda is up to date
+      shell: conda update conda -y

@@ -1,8 +1,7 @@
-# run command ansible-playbook with --ask-become-pass
 - hosts : atlantide
-  remote_user: pousse
+  remote_user: openfisca
   become: yes
   become_method: sudo
   tasks:
     - name: Ensure git is installed
-      apt: name=git
+      apt: pkg=git state=installed update_cache=true
