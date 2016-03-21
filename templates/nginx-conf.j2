@@ -3,22 +3,24 @@ upstream openfisca {
 		server 127.0.0.1:12200;
 }
 
+#server {
+#		listen 80;
+#		server_name embauche.beta.gouv.fr;
+#
+#		return 302 https://embauche.beta.gouv.fr$request_uri;
+#}
+
+proxy_cache_path /home/openfisca/nginx-cache levels=1:2 keys_zone=openfisca_cache:10m max_size=1g inactive=30d;
+
 server {
-		listen 80;
-		server_name embauche.beta.gouv.fr;
-
-		return 302 https://embauche.beta.gouv.fr$request_uri;
-}
-
-proxy_cache_path /home/openfisca/nginx-cache levels=1:2 keys_zone=openfisca_cache:10m max_size=1g inactive=30d use_temp_path=off;
-
-server {
-		listen 443 ssl;
-		server_name embauche.beta.gouv.fr;
+		#listen 443 ssl;
+		#server_name embauche.beta.gouv.fr;
 
 		#ssl_certificate /etc/nginx/ssl/wildcard.sgmap.fr.chained.crt;
 		#ssl_certificate_key /etc/nginx/ssl/wildcard.sgmap.fr.key;
 
+		listen 80;
+		server_name embauche.beta.gouv.fr;
 		access_log /var/log/nginx/openfisca.log;
 
 		location /openfisca/ {
@@ -30,13 +32,14 @@ server {
 				proxy_set_header Upgrade $http_upgrade;
 				proxy_set_header Connection "upgrade";
 
+				rewrite /openfisca/(.*)$ /$1 break;
 				proxy_pass  http://openfisca;
 				proxy_redirect off;
 
 				# Avoid having the origin set in cache through access-control-allow-origin
 				proxy_set_header Origin "*";
 				add_header X-Cache-Status $upstream_cache_status;
-				proxy_cache openfisca_embauche_cache;
+				proxy_cache openfisca_cache;
 				proxy_ignore_headers Cache-Control;
 				proxy_cache_valid any 30d;
 		}
