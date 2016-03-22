@@ -1,0 +1,12 @@
+france:
+  at: reforme-net-brut
+  org: openfisca
+core:
+  at: master
+  org: openfisca
+web_api:
+  at: reforms-in-formula-endpoint
+  org: sgmap
+parsers:
+  at: master
+  org: openfisca

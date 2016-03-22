@@ -1,5 +1,5 @@
-#- include: openfisca/general-setup.yaml
-#- include: openfisca/install-nginx.yaml
-#- include: openfisca/install-miniconda.yaml
-#- include: openfisca/environment-openfisca.yaml
-- include: openfisca/restart-openfisca.yaml
+- include: openfisca/general-setup.yaml
+- include: openfisca/install-nginx.yaml
+- include: openfisca/install-miniconda.yaml
+- include: openfisca/create-environment.yaml
+- include: update-openfisca.yaml

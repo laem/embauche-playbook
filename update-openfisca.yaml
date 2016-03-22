@@ -1,0 +1,2 @@
+- include: openfisca/install-openfisca.yaml
+- include: openfisca/restart-openfisca.yaml

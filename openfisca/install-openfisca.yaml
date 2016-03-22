@@ -1,0 +1,20 @@
+- hosts : atlantide
+  remote_user: openfisca
+  tasks:
+    - include_vars: openfisca-versions.yaml
+    - name: Install OpenFisca core
+      shell: pip install --exists-action w -e git+https://github.com/{{core.org}}/openfisca-core.git@{{core.at}}#egg=OpenFisca-Core
+      #args:
+      #  executable: /bin/bash
+    - name: Install OpenFisca france
+      shell: pip install --exists-action w -e git+https://github.com/{{france.org}}/openfisca-france.git@{{france.at}}#egg=OpenFisca-France
+      #args:
+      #  executable: /bin/bash
+    - name: Install OpenFisca Web API
+      shell: pip install --exists-action w -e git+https://github.com/{{web_api.org}}/openfisca-web-api.git@{{web_api.at}}#egg=OpenFisca-Web-API
+      #args:
+      #  executable: /bin/bash
+    - name: Install OpenFisca Parsers
+      shell: pip install --exists-action w -e git+https://github.com/{{parsers.org}}/openfisca-parsers.git@{{parsers.at}}#egg=OpenFisca-Parsers
+      #args:
+      #  executable: /bin/bash

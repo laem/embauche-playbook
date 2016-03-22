@@ -1,24 +1,26 @@
 # run command ansible-playbook with --ask-become-pass
 - hosts : atlantide
   remote_user: openfisca
-  become: yes
-  become_method: sudo
   tasks:
     - name: Add OpenFisca Web-API production.ini
       template: src=templates/production-ini.j2 dest=~/production.ini
     - name: Add upstart service OpenFisca
       template: src=templates/upstart-service.j2 dest=/etc/init/openfisca.conf
-      notify:
-        - stop openfisca
-        - start openfisca
+      become: yes
+      become_method: sudo
+    - name: stop openfisca
+      service: name=openfisca state=stopped
+      become: yes
+      become_method: sudo
+    - name: start openfisca
+      service: name=openfisca state=started
+      become: yes
+      become_method: sudo
     - name: Remove nginx cache
-      shell: rm -rf ~/nginx-cache/
-      notify:
-        - reload nginx
-  handlers:
-  - name: start openfisca
-    service: name=openfisca state=started
-  - name: stop openfisca
-    service: name=openfisca state=stopped
-  - name: reload nginx
-    service: name=nginx state=reloaded
+      shell: rm -rf /home/openfisca/nginx-cache/
+      become: yes
+      become_method: sudo
+    - name: restart nginx
+      service: name=nginx state=restarted
+      become: yes
+      become_method: sudo
