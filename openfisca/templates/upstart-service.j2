@@ -1,0 +1,11 @@
+description "openfisca"
+
+start on (filesystem)
+stop on runlevel [016]
+
+respawn
+setuid openfisca
+setgid openfisca
+chdir /home/openfisca
+
+exec /home/openfisca/miniconda2/envs/OpenFisca/bin/gunicorn --paster production.ini
