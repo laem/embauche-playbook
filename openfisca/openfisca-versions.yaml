@@ -1,6 +1,6 @@
 france:
-  at: reforme-net-brut
-  org: openfisca
+  at: net_partiel
+  org: sgmap
 core:
   at: master
   org: openfisca
