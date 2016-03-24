@@ -5,7 +5,7 @@ core:
   at: master
   org: openfisca
 web_api:
-  at: reforms-in-formula-endpoint
+  at: formula-reforms-and-common-simulation
   org: sgmap
 parsers:
   at: master
